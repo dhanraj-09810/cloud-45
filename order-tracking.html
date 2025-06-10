@@ -1,150 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Order Status & Arrival Time - Hamro Khaja Ghar</title>
-  <link rel="stylesheet" href="styles.css" />
-  <style>
-    /* Styling for the new order tracking page */
-    .order-tracking-section {
-        max-width: 600px;
-        margin: 2rem auto;
-        padding: 2rem;
-        background-color: #fff;
-        border-radius: var(--border-radius);
-        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        text-align: center;
-    }
-
-    .order-tracking-section h1 {
-        color: var(--color-primary);
-        margin-bottom: 1.5rem;
-    }
-
-    .order-tracking-section p {
-        font-size: 1.1em;
-        margin-bottom: 1rem;
-        color: #555;
-    }
-
-    .distance-options {
-        margin: 2rem 0;
-        padding: 1.5rem;
-        border: 1px solid #eee;
-        border-radius: var(--border-radius);
-        background-color: #fcfcfc;
-        display: inline-block; /* To center it */
-        text-align: left; /* Keep labels left-aligned within the block */
-    }
-
-    .distance-options label {
-        display: block;
-        margin-bottom: 10px;
-        font-size: 1em;
-        cursor: pointer;
-    }
-
-    .distance-options input[type="radio"] {
-        margin-right: 8px;
-    }
-
-    #arrivalTimeDisplay {
-        font-size: 1.6em;
-        font-weight: bold;
-        color: var(--color-text);
-        margin-top: 2rem;
-        padding: 1rem;
-        background-color: #e8f5e9; /* Light green for success */
-        border: 1px solid #4CAF50; /* Green border */
-        border-radius: var(--border-radius);
-        display: none; /* Hidden by default */
-    }
-
-    .disclaimer {
-        font-size: 0.9em;
-        color: #888;
-        margin-top: 1.5rem;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Order Status & Arrival Time - Hooka & Momos</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <nav class="navbar">
-    <div class="logo">
-      <img src="image/image/upperlo.png" alt="Hamro Khaja Ghar Logo" />
-    </div>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="product.html">Menu & Order</a></li>
-      <li><a href="about.html">About Us</a></li>
-      <li><a href="order.html" class="active">My Orders</a></li> </ul>
-  </nav>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="image/upperlo.png" alt="Hooka & Momos Logo" />
+        </div>
+        <button class="menu-toggle" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <ul class="navbar-nav">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="product.html">Menu & Order</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="order.html">My Orders</a></li>
+            <li><a href="order-tracking.html" class="active">Track Order</a></li>
+        </ul>
+    </nav>
 
-  <section class="order-tracking-section">
-    <h1>Your Order Has Been Placed!</h1>
-    <p>Thank you for your order. We are preparing your delicious food now.</p>
-    <p>To get an estimated arrival time, please select your approximate delivery distance from our restaurant:</p>
+    <main>
+        <section class="order-tracking-section">
+            <h1>Your Order Has Been Placed!</h1>
+            <p>Thank you for your order. We are preparing your delicious food now.</p>
+            <p>To get an estimated arrival time, please select your approximate delivery distance from our restaurant:</p>
 
-    <div class="distance-options">
-      <label>
-        <input type="radio" name="deliveryDistance" value="1-5km" id="distance1-5"> 1 to 5 km (Approx. 30 min)
-      </label>
-      <label>
-        <input type="radio" name="deliveryDistance" value="5-10km" id="distance5-10"> 5 to 10 km (Approx. 1 hour to 1 hour 30 min)
-      </label>
-      <label>
-        <input type="radio" name="deliveryDistance" value="over10km" id="distanceOver10"> More than 10 km (Please call for estimate)
-      </label>
-    </div>
+            <div class="distance-options">
+                <label>
+                    <input type="radio" name="deliveryDistance" value="1-5km" id="distance1-5"> 1 to 5 km (Approx. 30 min)
+                </label>
+                <label>
+                    <input type="radio" name="deliveryDistance" value="5-10km" id="distance5-10"> 5 to 10 km (Approx. 1 hour to 1 hour 30 min)
+                </label>
+                <label>
+                    <input type="radio" name="deliveryDistance" value="over10km" id="distanceOver10"> More than 10 km (Please call for estimate)
+                </label>
+            </div>
 
-    <button type="button" class="btn" onclick="checkArrivalTime()">Check Arrival Time</button>
+            <button type="button" class="btn" onclick="checkArrivalTime()">Check Arrival Time</button>
 
-    <div id="arrivalTimeDisplay"></div>
+            <div id="arrivalTimeDisplay"></div>
 
-    <p class="disclaimer">
-        *Estimates are based on typical traffic and preparation times. Actual arrival time may vary.
-    </p>
+            <p class="disclaimer">
+                *Estimates are based on typical traffic and preparation times. Actual arrival time may vary.
+            </p>
+        </section>
+    </main>
 
-  </section>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navbarNav = document.querySelector('.navbar-nav');
+            const body = document.body;
 
-  <script>
-    function checkArrivalTime() {
-      const distanceRadios = document.getElementsByName('deliveryDistance');
-      let selectedDistance = null;
+            if (menuToggle && navbarNav && body) {
+                menuToggle.addEventListener('click', () => {
+                    navbarNav.classList.toggle('show');
+                    menuToggle.classList.toggle('open');
+                    body.classList.toggle('no-scroll'); // Prevents background scroll
+                });
 
-      for (let i = 0; i < distanceRadios.length; i++) {
-        if (distanceRadios[i].checked) {
-          selectedDistance = distanceRadios[i].value;
-          break;
+                // Close menu when a link is clicked (useful for single-page nav or quick redirection)
+                navbarNav.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        navbarNav.classList.remove('show');
+                        menuToggle.classList.remove('open');
+                        body.classList.remove('no-scroll');
+                    });
+                });
+            }
+        });
+
+        // Your existing JavaScript for checking arrival time
+        function checkArrivalTime() {
+            const distanceRadios = document.getElementsByName('deliveryDistance');
+            let selectedDistance = null;
+
+            for (let i = 0; i < distanceRadios.length; i++) {
+                if (distanceRadios[i].checked) {
+                    selectedDistance = distanceRadios[i].value;
+                    break;
+                }
+            }
+
+            const arrivalTimeDisplay = document.getElementById('arrivalTimeDisplay');
+
+            if (!selectedDistance) {
+                arrivalTimeDisplay.style.display = 'block';
+                arrivalTimeDisplay.style.backgroundColor = 'var(--color-secondary)'; /* Using your theme colors */
+                arrivalTimeDisplay.style.borderColor = 'var(--color-primary)';
+                arrivalTimeDisplay.style.color = '#e65100'; // Darker orange for warning
+                arrivalTimeDisplay.innerHTML = 'Please select your delivery distance.';
+            } else {
+                arrivalTimeDisplay.style.display = 'block';
+                arrivalTimeDisplay.style.backgroundColor = '#e8f5e9'; /* Light green for success */
+                arrivalTimeDisplay.style.borderColor = '#4CAF50'; /* Green border */
+                arrivalTimeDisplay.style.color = '#388e3c'; /* Darker green text */
+
+                let message = '';
+                if (selectedDistance === '1-5km') {
+                    message = 'Estimated Arrival Time: <br><strong>30 minutes</strong>';
+                } else if (selectedDistance === '5-10km') {
+                    message = 'Estimated Arrival Time: <br><strong>1 hour to 1 hour 30 minutes</strong>';
+                } else if (selectedDistance === 'over10km') {
+                    message = 'For distances over 10 km, please call us at <strong>+91-XXXXXXXXXX</strong> for an accurate estimate.';
+                }
+                arrivalTimeDisplay.innerHTML = message;
+            }
         }
-      }
-
-      const arrivalTimeDisplay = document.getElementById('arrivalTimeDisplay');
-
-      if (!selectedDistance) {
-        arrivalTimeDisplay.style.display = 'block';
-        arrivalTimeDisplay.style.backgroundColor = '#ffe0b2'; /* Light orange for warning */
-        arrivalTimeDisplay.style.borderColor = '#ff9800'; /* Orange border */
-        arrivalTimeDisplay.style.color = '#e65100'; /* Darker orange text */
-        arrivalTimeDisplay.innerHTML = 'Please select your delivery distance.';
-      } else {
-        arrivalTimeDisplay.style.display = 'block';
-        arrivalTimeDisplay.style.backgroundColor = '#e8f5e9'; /* Light green for success */
-        arrivalTimeDisplay.style.borderColor = '#4CAF50'; /* Green border */
-        arrivalTimeDisplay.style.color = '#388e3c'; /* Darker green text */
-
-        let message = '';
-        if (selectedDistance === '1-5km') {
-          message = 'Estimated Arrival Time: <br><strong>30 minutes</strong>';
-        } else if (selectedDistance === '5-10km') {
-          message = 'Estimated Arrival Time: <br><strong>1 hour to 1 hour 30 minutes</strong>';
-        } else if (selectedDistance === 'over10km') {
-          message = 'For distances over 10 km, please call us at <strong>+91-XXXXXXXXXX</strong> for an accurate estimate.';
-        }
-        arrivalTimeDisplay.innerHTML = message;
-      }
-    }
-  </script>
-
+    </script>
 </body>
 </html>
