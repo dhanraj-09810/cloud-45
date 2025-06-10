@@ -1,54 +1,60 @@
-/* styles.css - Updated with colors reflecting original theme */
+/* styles.css - Updated with original colors and responsiveness */
 
-/* --- CSS Variables --- */
+/* CSS Variables for theme */
 :root {
-    --color-primary: #FF5722; /* A vibrant orange/red, like a chili or rich tomato */
-    --color-secondary: #FF8A65; /* A slightly lighter, softer orange/red */
-    --color-text: #333; /* Standard dark text for light backgrounds */
-    --color-light-bg: #f8f8f8; /* Very light gray for content sections */
-    --color-white: #fff; /* Pure white */
-    --color-dark-bg: #212121; /* Deep charcoal/almost black for navbar/footer */
-    --font-family: 'Poppins', sans-serif;
-    --border-radius: 8px;
-    --navbar-height: 60px;
+    --color-primary: #f4a261; /* Your original primary color */
+    --color-secondary: #e9c46a; /* Your original secondary color */
+    --color-bg: #f4f4f4; /* Your original background color */
+    --color-text: #333; /* Your original text color */
+    --border-radius: 10px; /* Your original border radius */
+    --transition-speed: 0.3s; /* Your original transition speed */
+    --z-navbar: 1000; /* Your original z-index for navbar */
+    --font-family: 'Poppins', sans-serif; /* Your original font family */
+    --navbar-height: 60px; /* Added for consistent navbar height calculation */
 }
 
-/* --- Base Styles --- */
+/* Reset & Base Styles */
 *, *::before, *::after {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
-}
-
-html {
+    box-sizing: border-box;
     scroll-behavior: smooth;
 }
 
-body {
+body, html {
     font-family: var(--font-family);
-    line-height: 1.6;
     color: var(--color-text);
-    background-color: var(--color-light-bg);
+    background-color: var(--color-bg);
+    line-height: 1.6;
     overflow-x: hidden; /* Prevent horizontal scroll from responsive elements */
 }
 
 a {
-    color: var(--color-primary);
     text-decoration: none;
-    transition: color 0.3s ease;
+    color: inherit; /* Inherit color, then specific overrides */
+    outline-offset: 2px;
+    transition: color var(--transition-speed);
+}
+a:hover, a:focus {
+    color: var(--color-primary);
+    outline-color: var(--color-primary);
 }
 
-a:hover {
-    color: var(--color-secondary);
+ul {
+    list-style: none;
+}
+
+button {
+    cursor: pointer;
 }
 
 img {
     max-width: 100%;
     height: auto;
-    display: block; /* Removes extra space below images */
+    display: block; /* Ensures images behave predictably */
 }
 
-/* Specific image classes for better control */
+/* Specific image classes for better control (can be applied if needed) */
 .home-hero-image,
 .product-image {
     width: 300px; /* Default size for larger screens */
@@ -78,48 +84,49 @@ img {
     }
 }
 
-
 /* --- Navbar --- */
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: var(--color-dark-bg); /* Use dark background */
-    padding: 0.5rem 2rem;
-    color: var(--color-white);
+    background-color: #333; /* Your original navbar background color */
+    padding: 0.75rem 1rem;
     position: sticky;
     top: 0;
-    z-index: 1000;
-    min-height: var(--navbar-height);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: var(--z-navbar);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    min-height: var(--navbar-height); /* Ensure consistent height */
 }
-
 .navbar .logo img {
-    height: 50px; /* Adjust logo size */
-    width: auto;
-    border-radius: 0; /* Remove border-radius if not desired on logo */
+    height: 50px;
+    max-width: 150px;
+    object-fit: contain;
 }
-
-.navbar-nav {
-    list-style: none;
+.navbar-nav { /* Changed from .navbar ul to .navbar-nav for specific targeting */
     display: flex;
     gap: 1.5rem;
+    list-style: none; /* Ensure no bullets */
 }
-
 .navbar-nav li a {
-    color: var(--color-white);
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
+    padding: 0.625rem 1rem;
+    font-weight: 500;
+    color: #fff; /* Your original link color */
+    border-radius: var(--border-radius);
+    transition: background-color var(--transition-speed);
+}
+.navbar-nav li a:hover, .navbar-nav li a:focus {
+    background-color: var(--color-primary); /* Your original hover color */
 }
 
-.navbar-nav li a:hover,
-.navbar-nav li a.active {
-    background-color: var(--color-primary); /* Use primary accent for active/hover */
-    color: var(--color-white);
+.active {
+    font-weight: bold;
+    /* You can add more specific active styles if needed, e.g., a background color */
+    background-color: var(--color-primary); /* Apply primary color to active link */
+    color: #fff !important; /* Ensure text color remains white on active background */
 }
 
-/* Hamburger Menu Toggle */
+/* Hamburger Menu Toggle (New for Responsiveness) */
 .menu-toggle {
     display: none; /* Hidden by default on large screens */
     flex-direction: column;
@@ -137,7 +144,7 @@ img {
     display: block;
     width: 100%;
     height: 3px;
-    background: var(--color-white);
+    background: #fff; /* White bars for hamburger */
     border-radius: 3px;
     transition: all 0.3s ease-in-out;
 }
@@ -169,7 +176,7 @@ img {
         top: var(--navbar-height); /* Position below navbar */
         left: 0;
         width: 100%;
-        background-color: var(--color-dark-bg); /* Use dark background */
+        background-color: #333; /* Your original navbar background color */
         border-top: 1px solid rgba(255,255,255,0.1);
         transform: translateX(-100%); /* Hidden by default */
         transition: transform 0.3s ease-in-out;
@@ -201,130 +208,55 @@ img {
 }
 
 
-/* --- General Section Styles (Home, About, Order, etc.) --- */
-section {
-    padding: 3rem 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-    text-align: center;
+/* --- Home Section --- */
+#home {
+    /* Corrected image path: Assuming 'image' folder is next to styles.css or one level up from a 'css' folder */
+    /* If styles.css is in a 'css' folder and 'image' is in the parent, use ../image/ */
+    /* If styles.css is in the same directory as 'image', use image/ */
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("image/hookah-with-smoke-against-dark.png") center/cover no-repeat;
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 1rem;
+    text-align:center;
+    color: white;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.7);
 }
-
-h1, h2, h3 {
-    color: var(--color-text); /* Standard dark text for headings */
+#home h1 {
+    font-size: clamp(2.5rem, 5vw, 3.5rem); /* Responsive font size */
     margin-bottom: 1rem;
 }
-
-h1 {
-    font-size: clamp(2.5rem, 6vw, 3.5rem);
-}
-
-h2 {
-    font-size: clamp(1.8rem, 4vw, 2.5rem);
-}
-
-p {
-    margin-bottom: 1rem;
-    line-height: 1.8;
+#home p {
+    font-size: clamp(1rem, 2vw, 1.2rem); /* Responsive font size */
+    max-width: 600px;
+    margin: auto;
+    margin-bottom: 2rem;
 }
 
 /* --- Buttons --- */
 .btn {
-    display: inline-block;
-    background-color: var(--color-primary); /* Primary accent for buttons */
-    color: var(--color-white);
-    padding: 0.8rem 1.5rem;
+    background-color: var(--color-primary); /* Your original primary color */
+    color: #fff;
+    padding: 0.75rem 2rem;
     border-radius: var(--border-radius);
-    text-transform: uppercase;
     font-weight: 600;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    border: none;
-    cursor: pointer;
-    font-size: 1em;
+    transition: background-color var(--transition-speed);
+    border: none; /* Ensure no default button border */
+}
+.btn:hover, .btn:focus {
+    background-color: #d4b54a; /* Your original hover color */
 }
 
-.btn:hover {
-    background-color: var(--color-secondary); /* Lighter accent on hover */
-    transform: translateY(-2px);
-}
-
-/* --- Home Section Specific (index.html) --- */
-#home {
-    background-color: var(--color-white);
-    padding: 4rem 2rem;
-    border-radius: var(--border-radius);
-    margin-top: 2rem;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-}
-
-#home h1 {
-    color: var(--color-primary); /* Primary accent for main heading */
-    margin-bottom: 0.75rem;
-}
-
-#home p {
-    font-size: 1.2em;
-    max-width: 700px;
-    margin: 0 auto 2rem auto;
-}
-
-/* --- About Us Section Specific (about.html) --- */
-.content {
-    background-color: var(--color-white);
-    padding: 2.5rem 2rem;
-    border-radius: var(--border-radius);
-    margin-top: 2rem;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    text-align: left; /* Adjust text alignment for readability */
-}
-
-.about-us-container, .hookah-container {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    margin-bottom: 3rem;
-    flex-wrap: wrap; /* Allow wrapping on smaller screens */
-    justify-content: center; /* Center items when wrapped */
-}
-
-.about-text, .hookah-text {
-    flex: 1;
-    min-width: 300px; /* Ensure text takes enough space */
-}
-
-.about-image, .hookah-image {
-    flex: 1;
-    min-width: 250px; /* Ensure image takes enough space */
-    display: flex; /* For centering image within its div */
-    justify-content: center;
-    align-items: center;
-}
-
-.about-image img, .hookah-image img {
-    border-radius: var(--border-radius);
-    max-width: 100%;
-    height: auto;
-    object-fit: cover;
-}
-
-/* Reverse order for some sections for visual variety */
-.hookah-container {
-    flex-direction: row-reverse;
-}
-
-/* Adjust contact info */
-.content p strong {
-    color: var(--color-text); /* Standard dark text */
-}
-
-
-/* --- Order Form Section Specific (product.html) --- */
+/* --- Order Section (General) --- */
 .order-section {
-    padding: 2rem; /* Adjusted padding for better mobile fit */
-    max-width: 1000px; /* Max width for the whole order section */
+    padding: 4rem; /* Your original padding */
+    max-width: 1000px; /* Added max-width for better control on large screens */
     margin: 2rem auto; /* Center the section */
     box-sizing: border-box;
-    width: calc(100% - 2rem); /* Ensure consistent margin on edges */
-    background-color: var(--color-white);
+    width: calc(100% - 2rem); /* Add consistent side margin */
+    background-color: #fff; /* Common for form sections */
     border-radius: var(--border-radius);
     box-shadow: 0 4px 15px rgba(0,0,0,0.05);
 }
@@ -341,51 +273,51 @@ p {
     border: 1px solid #ddd;
     border-radius: var(--border-radius);
     background-color: #fff;
-    box-sizing: border-box; /* Ensure padding is included in width */
+    box-sizing: border-box;
 }
 
 .order-section legend {
     font-size: 1.5rem;
     font-weight: bold;
-    color: var(--color-primary); /* Primary accent for legend */
+    color: var(--color-primary); /* Uses your primary color */
     padding: 0 10px;
-    width: auto; /* Allow legend to size itself */
-    margin-bottom: 1rem; /* Space below legend */
+    width: auto;
+    margin-bottom: 1rem;
 }
 
 .order-section label {
-    display: block; /* Make labels block for better stacking on small screens */
-    margin-bottom: 0.75rem; /* Space between labels */
+    display: block;
+    margin-bottom: 0.75rem;
     font-weight: 500;
 }
 .order-section label input[type="radio"],
 .order-section label input[type="checkbox"] {
-    margin-right: 0.5rem; /* Space for radio/checkbox */
-    vertical-align: middle; /* Align with text */
+    margin-right: 0.5rem;
+    vertical-align: middle;
 }
 
 .order-section input[type="number"],
 .order-section select,
 .order-section textarea {
-    display: block; /* Make inputs block for full width */
-    width: 100%; /* Make them fill their container */
-    padding: 0.75rem; /* Increased padding for touch targets */
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-family: var(--font-family);
     font-size: 1em;
-    margin-top: 5px; /* Space below label */
-    box-sizing: border-box; /* Crucial for full width */
+    margin-top: 5px;
+    box-sizing: border-box;
 }
 
 .order-section textarea {
-    resize: vertical; /* Allow vertical resizing */
-    min-height: 80px; /* Minimum height for text area */
+    resize: vertical;
+    min-height: 80px;
 }
 .order-section .btn {
     margin-top: 1rem;
-    width: auto; /* Allow button to size itself */
-    display: inline-block; /* Keep btn styles */
+    width: auto;
+    display: inline-block;
 }
 
 /* Adjust button placement for calculation and redirection */
@@ -394,7 +326,7 @@ p {
     flex-direction: column; /* Stack buttons on mobile */
     gap: 1rem;
     margin-top: 2rem;
-    padding: 0 1rem; /* Add horizontal padding to buttons container */
+    padding: 0 1rem;
 }
 .order-action-buttons .btn {
     flex: 1;
@@ -414,16 +346,16 @@ p {
 .feedback-form-area,
 .feedback-display-area {
     flex: 1;
-    min-width: 280px; /* Adjusted min-width for better mobile display */
+    min-width: 280px;
     background-color: #f9f9f9;
     padding: 1rem;
     border-radius: var(--border-radius);
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    box-sizing: border-box; /* Essential for responsive sizing */
+    box-sizing: border-box;
 }
 
 .feedback-display-area ul {
-    list-style: none; /* Remove bullet points */
+    list-style: none;
     padding-left: 0;
 }
 
@@ -431,7 +363,7 @@ p {
     margin-bottom: 10px;
     padding-bottom: 10px;
     border-bottom: 1px dashed #ddd;
-    word-wrap: break-word; /* Prevent text overflow */
+    word-wrap: break-word;
 }
 .feedback-display-area ul li:last-child {
     border-bottom: none;
@@ -451,8 +383,8 @@ p {
     }
     .feedback-form-area,
     .feedback-display-area {
-        min-width: unset; /* Remove min-width on very small screens */
-        width: 100%; /* Make them take full width when stacked */
+        min-width: unset;
+        width: 100%;
     }
 }
 @media (max-width: 480px) {
@@ -465,42 +397,187 @@ p {
         font-size: 1.2rem;
     }
     .product-feedback-container {
-        flex-direction: column; /* Ensure feedback areas stack */
+        flex-direction: column;
     }
     .order-action-buttons {
-        padding: 0; /* Remove padding from buttons container on smallest screens */
+        padding: 0;
     }
 }
+
+/* --- About Section --- */
+.content {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.content h1 {
+    font-size: clamp(2.5rem, 5vw, 3.5rem); /* Responsive font size */
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: var(--color-text);
+}
+
+/* Specific styling for the span within h1 */
+.content h1 span {
+    color: #e67e22; /* Your original inline span color */
+}
+
+.content h2 {
+    font-size: clamp(1.8rem, 4vw, 2.5rem); /* Responsive font size */
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: var(--color-text);
+    border-bottom: 2px solid var(--color-secondary);
+    padding-bottom: 0.5rem;
+}
+
+.content p {
+    margin-bottom: 1rem;
+    color: var(--color-text);
+    line-height: 1.7;
+}
+
+.about-us-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3rem;
+    align-items: flex-start;
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+}
+
+.about-text {
+    flex: 2;
+    min-width: 300px;
+}
+
+.about-image {
+    flex: 1;
+    min-width: 250px;
+    text-align: center;
+}
+
+.about-image img {
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    object-fit: cover;
+}
+
+.hookah-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3rem;
+    align-items: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    background-color: #fcfcfc;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+}
+
+.hookah-text {
+    flex: 2;
+    min-width: 300px;
+}
+
+.hookah-image {
+    flex: 1;
+    min-width: 250px;
+    text-align: center;
+}
+
+.hookah-image img {
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    object-fit: cover;
+}
+
+/* Styling for contact info */
+.content p strong {
+    color: var(--color-primary); /* Uses your primary color */
+}
+
+.content a {
+    color: var(--color-primary); /* Uses your primary color */
+    text-decoration: none;
+}
+.content a:hover {
+    color: var(--color-secondary); /* Uses your secondary color */
+    text-decoration: underline;
+}
+
+/* Responsive Adjustments for smaller screens */
+@media (max-width: 768px) {
+    .about-us-container,
+    .hookah-container {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .about-text,
+    .about-image,
+    .hookah-text,
+    .hookah-image {
+        flex: none;
+        width: 100%;
+    }
+
+    .content {
+        padding: 1.5rem;
+        margin: 1rem auto;
+    }
+
+    .content h1 {
+        font-size: 2rem;
+    }
+
+    .content h2 {
+        font-size: 1.5rem;
+    }
+}
+
+/* Further smaller screen adjustments */
+@media (max-width: 480px) {
+    .content {
+        padding: 1rem;
+    }
+}
+
 
 /* --- Order Summary Section Specific (order-summary.html) --- */
 .order-summary-section {
     max-width: 800px;
     margin: 2rem auto;
     padding: 2rem;
-    background-color: var(--color-white);
+    background-color: #fff; /* Standard white background for summary */
     border-radius: var(--border-radius);
     box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    box-sizing: border-box; /* Crucial for responsive widths */
-    width: calc(100% - 2rem); /* Add some side margin */
-    text-align: left; /* Align text left within the section */
+    box-sizing: border-box;
+    width: calc(100% - 2rem);
+    text-align: left;
 }
 
 .order-summary-section h1 {
     text-align: center;
-    color: var(--color-text); /* Standard dark text */
+    color: var(--color-text);
     margin-bottom: 2rem;
     font-size: clamp(2rem, 5vw, 2.8rem);
 }
 .order-summary-section h2 {
-    text-align: left; /* Customer details heading */
-    color: var(--color-primary); /* Primary accent for sub-headings */
+    text-align: left;
+    color: var(--color-primary); /* Uses your primary color */
     margin-top: 1.5rem;
     margin-bottom: 1rem;
     font-size: clamp(1.5rem, 3.5vw, 2rem);
 }
 .order-summary-section h3 {
-    text-align: left; /* Order Summary heading */
-    color: var(--color-text); /* Standard dark text */
+    text-align: left;
+    color: var(--color-text);
     margin-top: 2rem;
     margin-bottom: 1rem;
     font-size: clamp(1.4rem, 3vw, 1.8rem);
@@ -511,12 +588,12 @@ p {
     padding: 1.5rem;
     border-radius: var(--border-radius);
     margin-bottom: 2rem;
-    background-color: var(--color-light-bg); /* Use light background for summary box */
+    background-color: var(--color-bg); /* Uses your background color for the box */
     box-sizing: border-box;
 }
 
 .summary-box ul {
-    list-style: disc; /* Keep bullet points for items */
+    list-style: disc;
     margin-left: 1.5rem;
     margin-bottom: 1rem;
 }
@@ -525,11 +602,11 @@ p {
     margin-bottom: 0.5rem;
     color: #555;
     font-size: 1em;
-    word-wrap: break-word; /* Prevent text overflow */
+    word-wrap: break-word;
 }
 
 .summary-box p strong {
-    color: var(--color-primary); /* Primary accent for strong text in summary */
+    color: var(--color-primary); /* Uses your primary color */
 }
 
 .summary-details p {
@@ -537,18 +614,18 @@ p {
     justify-content: space-between;
     margin-bottom: 0.5rem;
     font-size: 1.1em;
-    padding-bottom: 0.2rem; /* Small padding for spacing */
+    padding-bottom: 0.2rem;
 }
 
 .summary-details p strong {
-    color: var(--color-text); /* Standard dark text for strong in details */
+    color: var(--color-text);
 }
 
 .summary-details .final-total {
     font-size: 1.5em;
     font-weight: bold;
-    color: var(--color-primary); /* Primary accent for final total */
-    border-top: 2px solid var(--color-secondary); /* Secondary accent for border */
+    color: var(--color-primary); /* Uses your primary color */
+    border-top: 2px solid var(--color-secondary); /* Uses your secondary color */
     padding-top: 1rem;
     margin-top: 1rem;
 }
@@ -571,11 +648,11 @@ p {
     border-radius: var(--border-radius);
     font-family: var(--font-family);
     font-size: 1em;
-    box-sizing: border-box; /* Ensure padding is included in width */
+    box-sizing: border-box;
 }
 
 #orderForm textarea {
-    resize: vertical; /* Allow vertical resizing */
+    resize: vertical;
     min-height: 100px;
 }
 
