@@ -1,4 +1,4 @@
-/* styles.css - Merged with original colors and added responsiveness */
+/* styles.css - Complete and Consolidated Code */
 
 /* CSS Variables for theme */
 :root {
@@ -710,5 +710,48 @@ img {
     }
     .summary-details .final-total {
         font-size: 1.2em;
+    }
+}
+
+/* --- Styles for simple content pages (like My Orders, Contact Us, etc.) --- */
+.simple-page-content {
+    max-width: 800px;
+    margin: 3rem auto;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    text-align: center;
+    box-sizing: border-box; /* Ensures padding is included in the width calculation */
+    width: calc(100% - 2rem); /* Adds a 1rem margin on each side for responsiveness */
+}
+.simple-page-content h1 {
+    color: var(--color-primary);
+    margin-bottom: 1.5rem;
+    font-size: clamp(2rem, 5vw, 3rem); /* Responsive font size */
+}
+.simple-page-content p {
+    font-size: clamp(1em, 2vw, 1.1em); /* Responsive font size */
+    margin-bottom: 1.5rem;
+    color: #555;
+}
+.simple-page-content .btn {
+    margin-top: 1rem;
+    display: inline-block; /* Ensure buttons stack properly or align as desired */
+}
+
+/* Responsive adjustments for simple content pages */
+@media (max-width: 768px) {
+    .simple-page-content {
+        padding: 1.5rem;
+        margin: 1.5rem auto;
+        width: calc(100% - 1.5rem); /* Adjust margin for smaller screens */
+    }
+}
+@media (max-width: 480px) {
+    .simple-page-content {
+        padding: 1rem;
+        margin: 1rem auto;
+        width: calc(100% - 1rem); /* Adjust margin for very small screens */
     }
 }
