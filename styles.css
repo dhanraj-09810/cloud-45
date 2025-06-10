@@ -1,274 +1,445 @@
-/* CSS Variables for theme */
+/* CSS Variables for theme - No Change */
 :root {
-  --color-primary: #f4a261;
-  --color-secondary: #e9c46a;
-  --color-bg: #f4f4f4;
-  --color-text: #333;
-  --border-radius: 10px;
-  --transition-speed: 0.3s;
-  --z-navbar: 1000;
-  --font-family: 'Poppins', sans-serif;
+    --color-primary: #f4a261;
+    --color-secondary: #e9c46a;
+    --color-bg: #f4f4f4;
+    --color-text: #333;
+    --border-radius: 10px;
+    --transition-speed: 0.3s;
+    --z-navbar: 1000;
+    --font-family: 'Poppins', sans-serif;
 }
 
-/* Reset & Base Styles */
+/* Reset & Base Styles - Minor adjustments for better responsiveness */
 *, *::before, *::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  scroll-behavior: smooth;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* scroll-behavior: smooth; This is fine, but not directly related to responsiveness */
 }
 
 body, html {
-  font-family: var(--font-family);
-  color: var(--color-text);
-  background-color: var(--color-bg);
-  line-height: 1.6;
+    font-family: var(--font-family);
+    color: var(--color-text);
+    background-color: var(--color-bg);
+    line-height: 1.6;
+    /* Crucial for responsiveness: ensures the viewport scales correctly */
+    width: 100%; /* Ensures body takes full width */
+    overflow-x: hidden; /* Prevents horizontal scroll caused by overflowing elements */
 }
 
 a {
-  text-decoration: none;
-  color: inherit;
-  outline-offset: 2px;
-  transition: color var(--transition-speed);
+    text-decoration: none;
+    color: inherit;
+    outline-offset: 2px;
+    transition: color var(--transition-speed);
 }
 a:hover, a:focus {
-  color: var(--color-primary);
-  outline-color: var(--color-primary);
+    color: var(--color-primary);
+    outline-color: var(--color-primary);
 }
 
 ul {
-  list-style: none;
+    list-style: none;
 }
 
 button {
-  cursor: pointer;
+    cursor: pointer;
+    border: none; /* Ensure buttons don't have default borders */
+    background: none; /* Reset background for custom styling */
 }
 
 img {
-  max-width: 100%;
-  height: auto;
+    max-width: 100%;
+    height: auto;
+    display: block; /* Removes extra space below images sometimes */
 }
 
-/* Navbar */
+/* Navbar - Improved for mobile responsiveness */
 .navbar {
-  background-color: #333;
-  padding: 0.75rem 1rem;
-  position: sticky;
-  top: 0;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  z-index: var(--z-navbar);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background-color: #333;
+    padding: 0.75rem 1rem;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: var(--z-navbar);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 .navbar .logo img {
-  height: 50px;
-  max-width: 150px;
-  object-fit: contain;
+    height: 50px; /* Fixed height for consistency */
+    max-width: 150px; /* Ensures logo doesn't get too wide */
+    object-fit: contain;
 }
 .navbar ul {
-  display: flex;
-  gap: 1.5rem;
+    display: flex;
+    gap: 1.5rem;
+    /* For mobile, this will be hidden and replaced by a hamburger menu */
 }
 .navbar ul li a {
-  padding: 0.625rem 1rem;
-  font-weight: 500;
-  color: #fff;
-  border-radius: var(--border-radius);
+    padding: 0.625rem 1rem;
+    font-weight: 500;
+    color: #fff;
+    border-radius: var(--border-radius);
+    white-space: nowrap; /* Prevents menu items from wrapping */
 }
 .navbar ul li a:hover, .navbar ul li a:focus {
-  background-color: var(--color-primary);
+    background-color: var(--color-primary);
 }
 
 .active {
-  font-weight: bold;
+    font-weight: bold;
 }
 
+/* Hamburger Menu Icon (New) */
+.menu-toggle {
+    display: none; /* Hidden by default on desktop */
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 25px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: var(--z-navbar) + 1; /* Ensure it's above other elements */
+}
+
+.menu-toggle span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: #fff;
+    border-radius: 5px;
+    transition: all var(--transition-speed) ease;
+}
+
+/* Styles for when menu is active (JavaScript would toggle a class like .open) */
+.menu-toggle.open span:nth-child(1) {
+    transform: translateY(11px) rotate(45deg);
+}
+.menu-toggle.open span:nth-child(2) {
+    opacity: 0;
+}
+.menu-toggle.open span:nth-child(3) {
+    transform: translateY(-11px) rotate(-45deg);
+}
+
+/* Mobile Navigation (New) */
+.navbar-nav {
+    display: flex; /* Kept flex for desktop */
+    gap: 1.5rem;
+}
+
+/* This will be applied by JavaScript when the menu is toggled */
+.navbar-nav.mobile-active {
+    position: fixed;
+    top: 0; /* Or 66px, same height as navbar */
+    left: 0;
+    width: 100%;
+    height: 100vh; /* Full viewport height */
+    background-color: rgba(0, 0, 0, 0.9); /* Dark overlay */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    transform: translateX(100%); /* Start off-screen */
+    transition: transform var(--transition-speed) ease-in-out;
+    z-index: var(--z-navbar);
+}
+
+.navbar-nav.mobile-active.show {
+    transform: translateX(0); /* Slide in */
+}
+
+.navbar-nav.mobile-active li {
+    margin: 1rem 0; /* Space out items */
+}
+
+.navbar-nav.mobile-active li a {
+    font-size: 1.5rem; /* Larger font for mobile menu */
+    padding: 1rem 2rem;
+    color: #fff;
+    border-radius: var(--border-radius);
+}
+.navbar-nav.mobile-active li a:hover,
+.navbar-nav.mobile-active li a:focus {
+    background-color: var(--color-primary);
+}
+
+
+/* Home Section - Ensure proper background and content centering */
 #home {
-  background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("C:\Users\ADMIN\Desktop\Hooka\image\hookah-with-smoke-against-dark.png") center/cover no-repeat;
-  min-height: 70vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem 1rem;
-  text-align:center;
-  color: white;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.7);
+    /* Corrected image path: Use relative path if the image is in a subfolder relative to your CSS */
+    /* Example: If CSS is in `css/style.css` and image in `image/hookah.png`, path would be `../image/hookah-with-smoke-against-dark.png` */
+    /* Assuming this image path was relative to your HTML/project root, or you need to adjust it */
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../image/hookah-with-smoke-against-dark.png") center/cover no-repeat;
+    min-height: 80vh; /* Increased min-height for better visibility on all screens */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 4rem 1rem; /* More vertical padding */
+    text-align: center;
+    color: white;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.7);
+    /* Ensure content within home doesn't cause overflow */
+    box-sizing: border-box;
+    width: 100%;
 }
 #home h1 {
-  font-size: clamp(2.5rem, 5vw, 3.5rem);
-  margin-bottom: 1rem;
+    font-size: clamp(2.5rem, 6vw, 4.5rem); /* Wider clamp range for better scaling */
+    margin-bottom: 1rem;
+    max-width: 90%; /* Prevent text from being too wide on very small screens */
+    word-wrap: break-word; /* Ensures long words break to prevent overflow */
 }
 #home p {
-  font-size: clamp(1rem, 2vw, 1.2rem);
-  max-width: 600px;
-  margin: auto;
-  margin-bottom: 2rem;
+    font-size: clamp(1rem, 2.5vw, 1.4rem); /* Wider clamp range */
+    max-width: 700px; /* Slightly increased max-width */
+    margin: 0 auto 2rem auto; /* Centering with margin */
+    padding: 0 1rem; /* Add horizontal padding to prevent text from touching edges */
 }
 
 .btn {
-  background-color: var(--color-primary);
-  color: #fff;
-  padding: 0.75rem 2rem;
-  border-radius: var(--border-radius);
-  font-weight: 600;
-  transition: background-color var(--transition-speed);
+    background-color: var(--color-primary);
+    color: #fff;
+    padding: 0.75rem 2rem;
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    transition: background-color var(--transition-speed);
+    display: inline-block; /* Essential for padding and width to apply correctly */
 }
 .btn:hover, .btn:focus {
-  background-color: #d4b54a;
+    background-color: #d4b54a;
+    outline: 2px solid var(--color-primary); /* Add outline for accessibility */
+    outline-offset: 4px;
 }
 
 .order-section {
-  padding: 4rem;
+    padding: 4rem 2rem; /* Add horizontal padding */
+    max-width: 1200px; /* Optional: Constrain width for larger screens */
+    margin: 0 auto; /* Center section */
 }
 
 /* --- CSS FOR THE ABOUT SECTION --- */
 
 /* The main content area where all the about info resides */
 .content {
-  max-width: 1000px; /* Adjust as needed for overall content width */
-  margin: 2rem auto; /* Centers the content block */
-  padding: 2rem; /* Add padding around the content */
-  background-color: #fff; /* White background for the content area itself */
-  border-radius: var(--border-radius);
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05); /* Soft shadow */
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    /* Ensure internal content adheres to padding and doesn't overflow */
+    box-sizing: border-box;
+    width: calc(100% - 2rem); /* Take full width minus some margin on small screens */
 }
 
 .content h1 {
-  font-size: 2.5rem; /* Larger heading */
-  margin-bottom: 1.5rem;
-  text-align: center;
-  color: var(--color-text); /* Use your defined text color */
+    font-size: clamp(2rem, 4vw, 2.5rem); /* Responsive font size */
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: var(--color-text);
 }
 
 /* Specific styling for the span within h1 */
 .content h1 span {
-  color: #e67e22; /* Your primary color for emphasis (inline style was #e67e22) */
+    color: #e67e22;
 }
 
 .content h2 {
-  font-size: 1.8rem;
-  margin-top: 2rem;
-  margin-bottom: 1rem;
-  color: var(--color-text);
-  border-bottom: 2px solid var(--color-secondary); /* A subtle underline */
-  padding-bottom: 0.5rem;
+    font-size: clamp(1.5rem, 3vw, 1.8rem); /* Responsive font size */
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: var(--color-text);
+    border-bottom: 2px solid var(--color-secondary);
+    padding-bottom: 0.5rem;
 }
 
 .content p {
-  margin-bottom: 1rem;
-  color: var(--color-text);
-  line-height: 1.7;
+    margin-bottom: 1rem;
+    color: var(--color-text);
+    line-height: 1.7;
+    /* Ensure text doesn't overflow */
+    word-wrap: break-word;
 }
 
 /* Container for the main text and image in the about section (Momo section) */
 .about-us-container {
-  display: flex;
-  flex-wrap: wrap; /* Allows items to wrap onto the next line on smaller screens */
-  gap: 3rem; /* Space between the text and image columns */
-  align-items: flex-start; /* Aligns items to the top */
-  margin-top: 2rem;
-  margin-bottom: 3rem; /* Space before the next section */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3rem;
+    align-items: flex-start;
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+    justify-content: center; /* Center items when they wrap */
 }
 
 .about-text {
-  flex: 2; /* Allows text to take up more space (e.g., 2/3) */
-  min-width: 300px; /* Minimum width before wrapping */
+    flex: 2;
+    min-width: 300px; /* Increased min-width for better readability before wrapping */
+    max-width: 600px; /* Optional: Add max-width to text column */
 }
 
 .about-image {
-  flex: 1; /* Allows image to take up less space (e.g., 1/3) */
-  min-width: 250px; /* Minimum width before wrapping */
-  text-align: center; /* Centers the image within its container */
+    flex: 1;
+    min-width: 250px;
+    max-width: 400px; /* Limit image size on larger screens */
+    text-align: center;
+    display: flex; /* Use flex to center image vertically if needed */
+    align-items: center;
+    justify-content: center;
 }
 
 .about-image img {
-  border-radius: var(--border-radius); /* Apply border-radius from variables */
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Subtle shadow for the image */
-  object-fit: cover; /* Ensures image covers its area nicely */
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    object-fit: cover;
+    width: 100%; /* Ensure image takes full width of its container */
+    height: auto; /* Maintain aspect ratio */
 }
 
 /* Container for the Hookah section */
 .hookah-container {
     display: flex;
-    flex-wrap: wrap; /* Allows items to wrap on smaller screens */
-    gap: 3rem; /* Space between text and image */
-    align-items: center; /* Vertically align items */
+    flex-wrap: wrap;
+    gap: 3rem;
+    align-items: center;
     margin-top: 2rem;
-    margin-bottom: 2rem; /* Add some space below this section */
-    background-color: #fcfcfc; /* A slightly different background to distinguish */
+    margin-bottom: 2rem;
+    background-color: #fcfcfc;
     padding: 2rem;
     border-radius: var(--border-radius);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.03); /* Lighter shadow */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+    justify-content: center; /* Center items when they wrap */
 }
 
 .hookah-text {
-    flex: 2; /* Similar to about-text, takes more space */
+    flex: 2;
     min-width: 300px;
+    max-width: 600px; /* Optional: Add max-width to text column */
 }
 
 .hookah-image {
-    flex: 1; /* Similar to about-image, takes less space */
+    flex: 1;
     min-width: 250px;
+    max-width: 400px; /* Limit image size on larger screens */
     text-align: center;
+    display: flex; /* Use flex to center image vertically if needed */
+    align-items: center;
+    justify-content: center;
 }
 
 .hookah-image img {
     border-radius: var(--border-radius);
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     object-fit: cover;
+    width: 100%;
+    height: auto;
 }
 
 /* Styling for contact info */
 .content p strong {
-  color: var(--color-primary); /* Emphasize contact labels */
+    color: var(--color-primary);
 }
 
 .content a {
-  color: var(--color-primary);
-  text-decoration: none; /* Removed underline by default */
+    color: var(--color-primary);
+    text-decoration: none;
 }
 .content a:hover {
-  color: var(--color-secondary);
-  text-decoration: underline; /* Add underline on hover for links */
+    color: var(--color-secondary);
+    text-decoration: underline;
 }
 
 
 /* Responsive Adjustments for smaller screens */
 @media (max-width: 768px) {
-  .about-us-container,
-  .hookah-container {
-    flex-direction: column; /* Stacks the text and image vertically */
-    gap: 2rem; /* Adjust gap when stacked */
-  }
+    /* Navbar adjustments for mobile */
+    .navbar .navbar-nav {
+        display: none; /* Hide desktop menu */
+    }
+    .menu-toggle {
+        display: flex; /* Show hamburger icon */
+    }
 
-  .about-text,
-  .about-image,
-  .hookah-text,
-  .hookah-image {
-    flex: none; /* Remove flex basis when stacked */
-    width: 100%; /* Make them take full width */
-  }
+    .about-us-container,
+    .hookah-container {
+        flex-direction: column; /* Stacks the text and image vertically */
+        gap: 2rem; /* Adjust gap when stacked */
+        align-items: center; /* Center vertically stacked items */
+    }
 
-  .content {
-    padding: 1.5rem; /* Less padding on smaller screens */
-    margin: 1rem auto; /* Less margin */
-  }
+    .about-text,
+    .about-image,
+    .hookah-text,
+    .hookah-image {
+        flex: none; /* Remove flex basis when stacked */
+        width: 100%; /* Make them take full width */
+        max-width: 500px; /* Limit max width for readability on medium mobiles */
+        margin: 0 auto; /* Center the blocks */
+    }
 
-  .content h1 {
-    font-size: 2rem;
-  }
+    .content {
+        padding: 1.5rem; /* Less padding on smaller screens */
+        margin: 1rem auto; /* Less margin */
+        width: calc(100% - 2rem); /* Ensure consistent margin on edges */
+    }
 
-  .content h2 {
-    font-size: 1.5rem;
-  }
+    .content h1 {
+        font-size: clamp(1.8rem, 5vw, 2.2rem); /* Adjusted clamp for mobile */
+    }
+
+    .content h2 {
+        font-size: clamp(1.3rem, 4vw, 1.6rem); /* Adjusted clamp for mobile */
+    }
+
+    #home {
+        padding: 3rem 1rem; /* Reduce padding on mobile */
+        min-height: 60vh; /* Can be slightly smaller on mobile */
+    }
 }
 
-/* Further smaller screen adjustments */
+/* Further smaller screen adjustments (e.g., for very small phones) */
 @media (max-width: 480px) {
-  .content {
-    padding: 1rem;
-  }
+    .content {
+        padding: 1rem;
+        margin: 0.5rem auto;
+        width: calc(100% - 1rem); /* Even less margin */
+    }
+
+    .navbar {
+        padding: 0.5rem 0.75rem; /* Smaller padding for very small screens */
+    }
+    .navbar .logo img {
+        height: 40px; /* Slightly smaller logo */
+    }
+    .navbar-nav.mobile-active li a {
+        font-size: 1.2rem; /* Smaller font for menu items on very small screens */
+        padding: 0.75rem 1.5rem;
+    }
+    #home h1 {
+        font-size: clamp(2rem, 8vw, 3rem); /* Adjust font size for very small screens */
+    }
+    #home p {
+        font-size: clamp(0.9rem, 3vw, 1.1rem);
+    }
+    .btn {
+        padding: 0.6rem 1.5rem; /* Smaller button padding */
+        font-size: 0.9rem;
+    }
+}
+
+/* Desktop adjustments for larger screens (optional, but good practice) */
+@media (min-width: 1200px) {
+    .content {
+        padding: 3rem; /* More padding on large screens */
+    }
+    .about-us-container,
+    .hookah-container {
+        gap: 4rem; /* More space between columns on large screens */
+    }
 }
