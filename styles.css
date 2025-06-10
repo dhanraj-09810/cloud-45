@@ -1,13 +1,13 @@
-/* styles.css */
+/* styles.css - Updated with colors reflecting original theme */
 
 /* --- CSS Variables --- */
 :root {
-    --color-primary: #e67e22; /* Orange */
-    --color-secondary: #f39c12; /* Lighter Orange/Yellow */
-    --color-text: #333;
-    --color-light-bg: #f4f4f4;
-    --color-white: #fff;
-    --color-dark-text: #2c3e50; /* Dark Blue/Gray for contrast */
+    --color-primary: #FF5722; /* A vibrant orange/red, like a chili or rich tomato */
+    --color-secondary: #FF8A65; /* A slightly lighter, softer orange/red */
+    --color-text: #333; /* Standard dark text for light backgrounds */
+    --color-light-bg: #f8f8f8; /* Very light gray for content sections */
+    --color-white: #fff; /* Pure white */
+    --color-dark-bg: #212121; /* Deep charcoal/almost black for navbar/footer */
     --font-family: 'Poppins', sans-serif;
     --border-radius: 8px;
     --navbar-height: 60px;
@@ -84,7 +84,7 @@ img {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: var(--color-dark-text);
+    background-color: var(--color-dark-bg); /* Use dark background */
     padding: 0.5rem 2rem;
     color: var(--color-white);
     position: sticky;
@@ -115,7 +115,7 @@ img {
 
 .navbar-nav li a:hover,
 .navbar-nav li a.active {
-    background-color: var(--color-primary);
+    background-color: var(--color-primary); /* Use primary accent for active/hover */
     color: var(--color-white);
 }
 
@@ -169,7 +169,7 @@ img {
         top: var(--navbar-height); /* Position below navbar */
         left: 0;
         width: 100%;
-        background-color: var(--color-dark-text);
+        background-color: var(--color-dark-bg); /* Use dark background */
         border-top: 1px solid rgba(255,255,255,0.1);
         transform: translateX(-100%); /* Hidden by default */
         transition: transform 0.3s ease-in-out;
@@ -210,7 +210,7 @@ section {
 }
 
 h1, h2, h3 {
-    color: var(--color-dark-text);
+    color: var(--color-text); /* Standard dark text for headings */
     margin-bottom: 1rem;
 }
 
@@ -230,7 +230,7 @@ p {
 /* --- Buttons --- */
 .btn {
     display: inline-block;
-    background-color: var(--color-primary);
+    background-color: var(--color-primary); /* Primary accent for buttons */
     color: var(--color-white);
     padding: 0.8rem 1.5rem;
     border-radius: var(--border-radius);
@@ -243,7 +243,7 @@ p {
 }
 
 .btn:hover {
-    background-color: var(--color-secondary);
+    background-color: var(--color-secondary); /* Lighter accent on hover */
     transform: translateY(-2px);
 }
 
@@ -257,7 +257,7 @@ p {
 }
 
 #home h1 {
-    color: var(--color-primary);
+    color: var(--color-primary); /* Primary accent for main heading */
     margin-bottom: 0.75rem;
 }
 
@@ -313,7 +313,7 @@ p {
 
 /* Adjust contact info */
 .content p strong {
-    color: var(--color-dark-text);
+    color: var(--color-text); /* Standard dark text */
 }
 
 
@@ -347,7 +347,7 @@ p {
 .order-section legend {
     font-size: 1.5rem;
     font-weight: bold;
-    color: var(--color-primary);
+    color: var(--color-primary); /* Primary accent for legend */
     padding: 0 10px;
     width: auto; /* Allow legend to size itself */
     margin-bottom: 1rem; /* Space below legend */
@@ -477,7 +477,7 @@ p {
     max-width: 800px;
     margin: 2rem auto;
     padding: 2rem;
-    background-color: #fff;
+    background-color: var(--color-white);
     border-radius: var(--border-radius);
     box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     box-sizing: border-box; /* Crucial for responsive widths */
@@ -487,20 +487,20 @@ p {
 
 .order-summary-section h1 {
     text-align: center;
-    color: var(--color-dark-text);
+    color: var(--color-text); /* Standard dark text */
     margin-bottom: 2rem;
     font-size: clamp(2rem, 5vw, 2.8rem);
 }
 .order-summary-section h2 {
     text-align: left; /* Customer details heading */
-    color: var(--color-primary);
+    color: var(--color-primary); /* Primary accent for sub-headings */
     margin-top: 1.5rem;
     margin-bottom: 1rem;
     font-size: clamp(1.5rem, 3.5vw, 2rem);
 }
 .order-summary-section h3 {
     text-align: left; /* Order Summary heading */
-    color: var(--color-dark-text);
+    color: var(--color-text); /* Standard dark text */
     margin-top: 2rem;
     margin-bottom: 1rem;
     font-size: clamp(1.4rem, 3vw, 1.8rem);
@@ -511,7 +511,7 @@ p {
     padding: 1.5rem;
     border-radius: var(--border-radius);
     margin-bottom: 2rem;
-    background-color: #f9f9f9;
+    background-color: var(--color-light-bg); /* Use light background for summary box */
     box-sizing: border-box;
 }
 
@@ -529,7 +529,7 @@ p {
 }
 
 .summary-box p strong {
-    color: var(--color-primary);
+    color: var(--color-primary); /* Primary accent for strong text in summary */
 }
 
 .summary-details p {
@@ -541,14 +541,14 @@ p {
 }
 
 .summary-details p strong {
-    color: var(--color-dark-text);
+    color: var(--color-text); /* Standard dark text for strong in details */
 }
 
 .summary-details .final-total {
     font-size: 1.5em;
     font-weight: bold;
-    color: var(--color-primary);
-    border-top: 2px solid var(--color-secondary);
+    color: var(--color-primary); /* Primary accent for final total */
+    border-top: 2px solid var(--color-secondary); /* Secondary accent for border */
     padding-top: 1rem;
     margin-top: 1rem;
 }
