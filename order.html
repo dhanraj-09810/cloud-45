@@ -1,54 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
- <link rel="stylesheet" href="styles.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Cloud-45 - My Orders</title>
+    <link rel="stylesheet" href="styles.css" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <title>Cloud-45 - My Orders</title> 
-  <style>
-    .simple-page-content {
-      max-width: 800px;
-      margin: 3rem auto;
-      padding: 2rem;
-      background-color: #fff;
-      border-radius: var(--border-radius);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-      text-align: center;
-    }
-    .simple-page-content h1 {
-      color: var(--color-primary);
-      margin-bottom: 1.5rem;
-    }
-    .simple-page-content p {
-      font-size: 1.1em;
-      margin-bottom: 1.5rem;
-      color: #555;
-    }
-    .simple-page-content .btn {
-      margin-top: 1rem;
-    }
-  </style>
 </head>
 <body>
 
-  <nav class="navbar">
-    <div class="logo">
-      <img src="image/image/upperlo.png" alt="Hamro Khaja Ghar Logo" />
-    </div>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="product.html">Menu & Order</a></li> <li><a href="about.html">About Us</a></li>
-      <li><a href="order.html" class="active">My Orders</a></li> </ul>
-  </nav>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="image/upperlo.png" alt="Cloud-45 Logo" />
+        </div>
+        <button class="menu-toggle" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <ul class="navbar-nav">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="product.html">Menu & Order</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="order.html" class="active">My Orders</a></li>
+        </ul>
+    </nav>
 
-  <section class="simple-page-content">
-    <h1>My Orders</h1>
-    <p>Here you can view your past orders and their status. (This is a placeholder page.)</p>
-    <p>To place a new order, please visit our Menu & Order page:</p>
-    <a href="product.html" class="btn">Place a New Order</a>
-    <a href="order-tracking.html" class="btn">Track Last Order (Demo)</a>
-  </section>
+    <main>
+        <section class="simple-page-content">
+            <h1>My Orders</h1>
+            <p>Here you can view your past orders and their status. (This is a placeholder page.)</p>
+            <p>To place a new order, please visit our Menu & Order page:</p>
+            <a href="product.html" class="btn">Place a New Order</a>
+            <a href="order-tracking.html" class="btn">Track Last Order (Demo)</a>
+        </section>
+    </main>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navbarNav = document.querySelector('.navbar-nav');
+            const body = document.body;
+
+            if (menuToggle && navbarNav && body) {
+                menuToggle.addEventListener('click', () => {
+                    navbarNav.classList.toggle('show');
+                    menuToggle.classList.toggle('open');
+                    body.classList.toggle('no-scroll'); // Prevents background scroll
+                });
+
+                // Close menu when a link is clicked (useful for single-page nav or quick redirection)
+                navbarNav.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        navbarNav.classList.remove('show');
+                        menuToggle.classList.remove('open');
+                        body.classList.remove('no-scroll');
+                    });
+                });
+            }
+        });
+    </script>
 </body>
 </html>
