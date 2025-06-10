@@ -1,214 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Order Summary & Payment - Hamro Khaja Ghar</title>
-  <link rel="stylesheet" href="styles.css" />
-  <style>
-    /* Basic styling for order-summary.html, you can move this to styles.css */
-    .order-summary-section {
-        max-width: 800px;
-        margin: 2rem auto;
-        padding: 2rem;
-        background-color: #fff;
-        border-radius: var(--border-radius);
-        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Cloud-45 - My Orders</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Add specific styles for the feedback sections */
+        .simple-page-content {
+            max-width: 800px;
+            margin: 3rem auto;
+            padding: 2rem;
+            background-color: #fff;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            text-align: center;
+            box-sizing: border-box; /* Ensure padding is included in width */
+            width: calc(100% - 2rem); /* Ensure consistent margin on edges */
+        }
+        .simple-page-content h1 {
+            color: var(--color-primary);
+            margin-bottom: 1.5rem;
+            font-size: clamp(2rem, 5vw, 2.5rem); /* Responsive font size */
+        }
+        .simple-page-content p {
+            font-size: clamp(1em, 2vw, 1.1em); /* Responsive font size */
+            margin-bottom: 1.5rem;
+            color: #555;
+            word-wrap: break-word; /* Prevent text overflow */
+        }
+        .simple-page-content .btn {
+            margin-top: 1rem;
+            display: inline-block; /* Ensure padding and width apply */
+        }
 
-    .order-summary-section h1 {
-        text-align: center;
-        color: var(--color-text);
-        margin-bottom: 2rem;
-    }
-
-    .summary-box {
-        border: 1px solid #ddd;
-        padding: 1.5rem;
-        border-radius: var(--border-radius);
-        margin-bottom: 2rem;
-    }
-
-    .summary-box ul {
-        margin-left: 1.5rem;
-        margin-bottom: 1rem;
-    }
-
-    .summary-box ul li {
-        margin-bottom: 0.5rem;
-        color: #555;
-    }
-
-    .summary-box p strong {
-        color: var(--color-primary);
-    }
-
-    .summary-details p {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 0.5rem;
-        font-size: 1.1em;
-    }
-
-    .summary-details p strong {
-        color: var(--color-text);
-    }
-
-    .summary-details .final-total {
-        font-size: 1.5em;
-        font-weight: bold;
-        color: var(--color-primary);
-        border-top: 2px solid var(--color-secondary);
-        padding-top: 1rem;
-        margin-top: 1rem;
-    }
-
-    #orderForm label {
-        display: block;
-        margin-bottom: 0.5rem;
-        font-weight: 500;
-        color: var(--color-text);
-    }
-
-    #orderForm input[type="text"],
-    #orderForm input[type="tel"],
-    #orderForm input[type="email"],
-    #orderForm textarea {
-        width: 100%;
-        padding: 0.8rem;
-        margin-bottom: 1rem;
-        border: 1px solid #ccc;
-        border-radius: var(--border-radius);
-        font-family: var(--font-family);
-        font-size: 1em;
-    }
-
-    #orderForm textarea {
-        resize: vertical; /* Allow vertical resizing */
-    }
-
-    #orderForm button.btn {
-        width: 100%;
-        padding: 1rem;
-        font-size: 1.1em;
-    }
-  </style>
+        /* Responsive adjustments for simple page */
+        @media (max-width: 768px) {
+            .simple-page-content {
+                margin: 1.5rem auto;
+                padding: 1.5rem;
+                width: calc(100% - 1.5rem);
+            }
+        }
+        @media (max-width: 480px) {
+            .simple-page-content {
+                margin: 1rem auto;
+                padding: 1rem;
+                width: calc(100% - 1rem);
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <nav class="navbar">
-    <div class="logo">
-      <img src="image/image/upperlo.png" alt="image/image/upperlo.png" />
-    </div>
-    <ul>
-      <li><a href="index.html" target="_blank">Home</a></li>
-      <li><a href="product.html" target="_blank">Products</a></li>
-      <li><a href="about.html" target="_blank">About Us</a></li>
-      <li><a href="order.html" class="active" target="_blank">Order</a></li>
-    </ul>
-  </nav>
 
-  <section class="order-summary-section">
-    <h1>Confirm Your Order & Pay</h1>
-
-    <h2>Customer Details</h2>
-    <form id="orderForm">
-      <label for="name">Full Name:</label>
-      <input type="text" id="name" required><br>
-
-      <label for="address">Delivery Address:</label>
-      <textarea id="address" rows="4" required></textarea><br>
-
-      <label for="number">Phone Number:</label>
-      <input type="tel" id="number" pattern="[0-9]{10}" title="Please enter a 10-digit phone number" required><br>
-
-      <label for="email">Email:</label>
-      <input type="email" id="email" required><br>
-
-      <h3>Order Summary</h3>
-      <div class="summary-box">
-        <p><strong>Ordered Items:</strong></p>
-        <ul id="orderItems"></ul>
-        <div class="summary-details">
-            <p>Subtotal: ₹<span id="subTotalDisplay">0.00</span></p>
-            <p>CGST (9%): ₹<span id="cgstDisplay">0.00</span></p>
-            <p>SGST (9%): ₹<span id="sgstDisplay">0.00</span></p>
-            <p class="final-total"><strong>Total Bill: ₹<span id="finalTotal">0.00</span></strong></p>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="index.html"><img src="image/image/upperlo.png" alt="Cloud-45 Logo" /></a>
         </div>
-      </div>
+        <button class="menu-toggle" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <ul class="navbar-nav"> <li><a href="index.html">Home</a></li>
+            <li><a href="product.html">Products</a></li> <li><a href="about.html">About Us</a></li>
+            <li><a href="order.html" class="active">Order</a></li> </ul>
+    </nav>
 
-      <br>
-      <button type="submit" class="btn">Make Payment</button>
-    </form>
-  </section>
+    <section class="simple-page-content">
+        <h1>My Orders</h1>
+        <p>Here you can view your past orders and their status. (This is a placeholder page.)</p>
+        <p>To place a new order, please visit our Menu & Order page:</p>
+        <a href="product.html" class="btn">Place a New Order</a>
+        <a href="order-tracking.html" class="btn">Track Last Order (Demo)</a>
+    </section>
 
-  <script>
-    const orderDetails = JSON.parse(localStorage.getItem('orderDetails'));
-    const orderList = document.getElementById("orderItems");
-    const subTotalDisplay = document.getElementById("subTotalDisplay");
-    const cgstDisplay = document.getElementById("cgstDisplay");
-    const sgstDisplay = document.getElementById("sgstDisplay");
-    const finalTotalDisplay = document.getElementById("finalTotal");
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navbarNav = document.querySelector('.navbar-nav');
 
-    let subtotal = 0;
+            menuToggle.addEventListener('click', function() {
+                navbarNav.classList.toggle('show');
+                menuToggle.classList.toggle('open'); // For the icon animation
+                document.body.classList.toggle('no-scroll', navbarNav.classList.contains('show'));
+            });
 
-    if (orderDetails && orderDetails.items && orderDetails.items.length > 0) {
-        subtotal = parseFloat(orderDetails.subTotal);
-
-        orderDetails.items.forEach(item => {
-            const li = document.createElement("li");
-            const pricePerUnit = item.price / item.qty; // Calculate price per unit if needed for display
-            li.textContent = `${item.name} - ₹${pricePerUnit.toFixed(2)} x ${item.qty} = ₹${(item.price).toFixed(2)}`;
-            orderList.appendChild(li);
+            navbarNav.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navbarNav.classList.remove('show');
+                    menuToggle.classList.remove('open');
+                    document.body.classList.remove('no-scroll');
+                });
+            });
         });
-
-        // Calculate Taxes (assuming 9% CGST and 9% SGST for 18% total GST)
-        const gstRate = 0.09; // 9% for CGST and SGST
-        const cgst = subtotal * gstRate;
-        const sgst = subtotal * gstRate;
-        const totalBill = subtotal + cgst + sgst;
-
-        subTotalDisplay.textContent = subtotal.toFixed(2);
-        cgstDisplay.textContent = cgst.toFixed(2);
-        sgstDisplay.textContent = sgst.toFixed(2);
-        finalTotalDisplay.textContent = totalBill.toFixed(2);
-
-    } else {
-        // Handle case where no order details are found
-        orderList.innerHTML = '<li>No items in your order. Please go back to the <a href="order.html">order page</a>.</li>';
-        subTotalDisplay.textContent = '0.00';
-        cgstDisplay.textContent = '0.00';
-        sgstDisplay.textContent = '0.00';
-        finalTotalDisplay.textContent = '0.00';
-    }
-
-    document.getElementById("orderForm").addEventListener("submit", function (e) {
-      e.preventDefault();
-
-      // Collect customer details
-      const customer = {
-        name: document.getElementById("name").value,
-        address: document.getElementById("address").value,
-        number: document.getElementById("number").value,
-        email: document.getElementById("email").value,
-        order: orderDetails, // Includes items and subtotal
-        taxes: {
-            cgst: parseFloat(cgstDisplay.textContent),
-            sgst: parseFloat(sgstDisplay.textContent)
-        },
-        finalBill: parseFloat(finalTotalDisplay.textContent)
-      };
-
-      // In a real application, you would send this 'customer' object to a server
-      // for payment processing and order fulfillment.
-      // For this example, we'll just log it and simulate success.
-      console.log("Customer Order Details:", customer);
-
-      alert("Order placed successfully! Payment processed.");
-      this.reset();
-      localStorage.removeItem('orderDetails'); // Clear order from localStorage after successful placement
-      window.location.href = "index.html"; // Redirect to home or a thank you page
-    });
-  </script>
-
+    </script>
 </body>
 </html>
